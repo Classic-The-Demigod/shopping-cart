@@ -6,8 +6,8 @@ function ProductTile({ singleProductTile }) {
 
   function handleNavigateToProductDetailsPage(getCurrentProductId) {
     // console.log(getCurrentProductId, navigate)
-    navigate(`/product-details/${getCurrentProductId}`);
-  }
+    navigate(`/product-details/${getCurrentProductId}`); 
+           }
   return (
     <div className="relative group border-2 border-cyan-700 p-6 cursor-pointer">
       <div className="overflow-hidden aspect-w-1 aspect-h-1">

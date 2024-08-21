@@ -1,11 +1,18 @@
 import React, { useContext, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { ShoppingCartContext } from "../context/cartContext";
 
 function ProductDetailsPage() {
   const { id } = useParams();
-  const { productDetails, setProductDetails, loading, setLoading } =
-    useContext(ShoppingCartContext);
+  const navigate = useNavigate();
+  const {
+    productDetails,
+    setProductDetails,
+    loading,
+    setLoading,
+    handleAddToCart,
+    cartItems,
+  } = useContext(ShoppingCartContext);
 
   async function fetchProductDeatils() {
     try {
@@ -27,7 +34,7 @@ function ProductDetailsPage() {
 
   if (loading) return <h1>Product details loading please wait!</h1>;
 
-  console.log(productDetails);
+  // console.log(productDetails);
   return (
     <div>
       <div className="p-6 lg:max-w-7xl max-w-4xl mx-auto">
@@ -62,7 +69,19 @@ function ProductDetailsPage() {
               <p className="text-xl font-bold">${productDetails?.price}</p>
             </div>
             <div>
-              <button className="mt-5 min-w-[200px] px-4 py-3 border border-[#333333] bg-transparent text-sm font-semibold rounded">Add to Cart</button>
+              <button
+                disabled={
+                  productDetails
+                    ? cartItems.findIndex(
+                        (item) => item.id === productDetails.id
+                      ) > -1
+                    : false
+                }
+                onClick={() => handleAddToCart(productDetails)}
+                className="disabled:opacity-65 mt-5 min-w-[200px] px-4 py-3 border border-[#333333] bg-transparent text-sm font-semibold rounded"
+              >
+                Add to Cart
+              </button>
             </div>
           </div>
         </div>
